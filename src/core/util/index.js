@@ -31,3 +31,12 @@ export function isReserved (str) {
 export function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }
+
+export function makeMap (str) {
+  const map = str.split(',').reduce((pre, cur) => {
+    pre[cur] = true
+    return pre
+  }, {})
+
+  return val => map[val]
+}

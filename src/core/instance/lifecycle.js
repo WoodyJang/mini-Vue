@@ -1,5 +1,5 @@
 import { warn, query } from '../util'
-
+import { compiler } from 'compiler'
 /**
  * activeInstance 保存着当前正在渲染的实例的引用，所以他就是当前实例components下注册的子组件的父实例，即activeInstance就是parent
  * vue实际上就是这样做到自动侦测父级的
@@ -53,6 +53,10 @@ export function lifecycleMixin (Vue) {
       } else if (el) {
         template = el.outerHTML
       }
+    }
+    if (template) {
+      const { render } = compiler(template, {})
+      this.$options.render = render
     }
     return mountComponent(this, el)
   }
